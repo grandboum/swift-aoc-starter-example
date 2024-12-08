@@ -1,5 +1,6 @@
 import Algorithms
 import DequeModule
+import Foundation
 
 struct Calibration: Equatable{
   let result: UInt64
@@ -27,7 +28,9 @@ struct Day07: AdventDay, @unchecked Sendable {
     let mul = backtrack(calibration, idx: idx + 1, total: total * number, canOr: canOr)
     guard canOr else { return add || mul }
 
-    guard let total = UInt64(String(total) + String(calibration.numbers[idx])) else { fatalError("can't or") }
+    let digits = String(calibration.numbers[idx]).count
+    let extra = power(10, digits)
+    let total = UInt64(total * extra + calibration.numbers[idx])
     let or = backtrack(calibration, idx: idx + 1, total: total, canOr: canOr)
     return add || mul || or
   }

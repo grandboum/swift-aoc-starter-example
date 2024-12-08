@@ -31,3 +31,13 @@ extension Array where Element == [Any] {
     }
   }
 }
+
+func power(_ num: UInt64, _ pow: Int) -> UInt64 {
+  guard pow >= 0 else { fatalError("Not supported") }
+
+  var answer: UInt64 = 1
+  for _ in 0..<pow {
+    answer *= num
+  }
+  return answer
+}
