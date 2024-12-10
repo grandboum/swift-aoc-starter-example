@@ -21,14 +21,38 @@ extension Point {
   }
 }
 
-extension Array where Element == [Any] {
-  subscript(point: Point) -> Any {
+struct Matrix<T> {
+  typealias Indices = Range<Int>
+
+  var storage: [[T]]
+  var rows: Indices {
+    return 0..<storage.count
+  }
+  var cols: Indices {
+    return 0..<storage[0].count
+  }
+
+  init(_ raw: [[T]]) {
+    storage = raw
+  }
+
+  subscript(point: Point) -> T {
     get {
-      self[point.rdx][point.cdx]
+      storage[point.rdx][point.cdx]
     }
     set {
-      self[point.rdx][point.cdx] = newValue
+      storage[point.rdx][point.cdx] = newValue
     }
+  }
+
+  func contains(point: Point) -> Bool {
+    if point.rdx < 0 || point.rdx >= storage.count {
+      return false 
+    }
+    if point.cdx < 0 || point.cdx >= storage[point.rdx].count {
+      return false 
+    }
+    return true
   }
 }
 
