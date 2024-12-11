@@ -1,5 +1,19 @@
 import Foundation
 
+extension Int {
+  var dgtCount: Int { return String(self).count }
+
+  func pow(_ power: Int) -> Int {
+    guard power >= 0 else { fatalError("Not supported") }
+
+    var answer: Int = 1
+    for _ in 0..<power {
+      answer *= self
+    }
+    return answer
+  }
+}
+
 struct Point: Hashable {
   let rdx: Int
   let cdx: Int
