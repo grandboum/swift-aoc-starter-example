@@ -14,6 +14,16 @@ extension Int {
   }
 }
 
+extension String {
+  func convertToMatrix() -> [[String]] {
+    var result: [[String]] = []
+    enumerateLines { line, _ in
+        result.append(line.map(String.init))
+    }
+    return result
+  }
+}
+
 struct Point: Hashable {
   let rdx: Int
   let cdx: Int
@@ -23,6 +33,12 @@ struct Direction: Hashable {
   let dr: Int
   let dc: Int
   static var startingDirection: Direction { Direction(dr: -1, dc: 0) }
+  static let allDirections: [Direction] = [
+    Direction(dr: -1, dc: 0), 
+    Direction(dr: 0, dc: 1), 
+    Direction(dr: 1, dc: 0),
+    Direction(dr: 0, dc: -1)
+  ]
 
   func rotateClockwise() -> Direction {
     return Direction(dr: dc, dc: -1 * dr)
@@ -67,6 +83,15 @@ struct Matrix<T> {
       return false 
     }
     return true
+  }
+
+  func explore(_ callback: (Point) -> Void) {
+    for rdx in storage.indices {
+      for cdx in storage[rdx].indices {
+        let point = Point(rdx: rdx, cdx: cdx)
+        callback(point)
+      }
+    }
   }
 }
 
