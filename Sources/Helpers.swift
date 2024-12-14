@@ -27,6 +27,10 @@ extension String {
 struct Point: Hashable {
   let rdx: Int
   let cdx: Int
+
+  func distance(to another: Point) -> Int {
+    return (rdx - another.rdx).pow(2) + (cdx - another.rdx).pow(2)
+  }
 }
 
 struct Direction: Hashable {
