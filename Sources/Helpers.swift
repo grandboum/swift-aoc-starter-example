@@ -36,16 +36,29 @@ struct Point: Hashable {
 struct Direction: Hashable {
   let dr: Int
   let dc: Int
-  static var startingDirection: Direction { Direction(dr: -1, dc: 0) }
-  static let allDirections: [Direction] = [
-    Direction(dr: -1, dc: 0), 
-    Direction(dr: 0, dc: 1), 
-    Direction(dr: 1, dc: 0),
-    Direction(dr: 0, dc: -1)
-  ]
+  static let startingDirection: Direction  = .north
+  static let allDirections: [Direction] = [ .north, .south, .west, .east ]
 
   func rotateClockwise() -> Direction {
     return Direction(dr: dc, dc: -1 * dr)
+  }
+
+  static var north: Direction { return Direction(dr: -1, dc: 0) }
+  static var south: Direction { return Direction(dr: 1, dc: 0) }
+  static var west: Direction { return Direction(dr: 0, dc: -1) }
+  static var east: Direction { return Direction(dr: 0, dc: 1) }
+
+  static var top: Direction { return .north }
+  static var bottom: Direction { return .south }
+  static var left: Direction { return .west }
+  static var right: Direction { return .east }
+
+  func isOppositeDirection(_ direction: Direction) -> Bool {
+    if direction == .north && self == .south { return true }
+    if direction == .south && self == .north { return true }
+    if direction == .west && self == .east { return true }
+    if direction == .east && self == .west { return true }
+    return false 
   }
 }
 
