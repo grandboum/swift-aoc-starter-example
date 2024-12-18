@@ -110,6 +110,13 @@ struct Matrix<T> {
       }
     }
   }
+
+  func printMatrix(separator: String = "", _ transform: (T) -> String) {
+    for row in storage {
+      let printable = row.map { transform($0) }
+      print(printable.joined(separator: separator))
+    }
+  }
 }
 
 func power(_ num: UInt64, _ pow: Int) -> UInt64 {
